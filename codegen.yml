@@ -1,0 +1,12 @@
+overwrite: true
+schema: "https://spacexdata.herokuapp.com/graphql"
+documents: "./src/components/**/*.{ts,tsx}"
+generates:
+  src/generated/:
+    preset: "client"
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "@graphql-codegen/typescript-react-apollo"
+    config:
+      withHooks: true
