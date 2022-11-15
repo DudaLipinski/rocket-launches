@@ -3,5 +3,6 @@
   "singleQuote": true,
   "bracketSpacing": true,
   "editor.formatOnSave": true,
+  "files.autoSave": "onFocusChange",
   "semi": false
 }

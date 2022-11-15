@@ -1,49 +1,40 @@
-import { LaunchProfileQuery } from '../../generated/graphql';
-import './styles.css';
+import { LaunchProfileQuery } from '../../generated/graphql'
+import LaunchProfileGallery from './LaunchProfileGallery'
+import './styles.css'
 
 interface Props {
-  data: LaunchProfileQuery;
+  data: LaunchProfileQuery
 }
 
-const className = 'LaunchProfile';
+const className = 'LaunchProfile'
 
 const LaunchProfile = ({ data }: Props) => {
   if (!data.launch) {
-    return <div>No launch available</div>;
+    return <div>No launch available</div>
   }
+
+  const { flight_number, launch_success, mission_name, rocket, details } =
+    data?.launch
+  const images = data?.launch?.links?.flickr_images
 
   return (
     <div className={className}>
       <div className={`${className}__status`}>
-        <span>Flight {data.launch.flight_number}: </span>
-        {data.launch.launch_success ? (
+        <span>Flight {flight_number}: </span>
+        {launch_success ? (
           <span className={`${className}__success`}>Success</span>
         ) : (
           <span className={`${className}__failed`}>Failed</span>
         )}
       </div>
       <h1 className={`${className}__title`}>
-        {data.launch.mission_name}
-        {data.launch.rocket &&
-          ` (${data.launch.rocket.rocket_name} | ${data.launch.rocket.rocket_type})`}
+        {mission_name}
+        {rocket && ` (${rocket.rocket_name} | ${rocket.rocket_type})`}
       </h1>
-      <p className={`${className}__description`}>{data.launch.details}</p>
-      {!!data.launch.links && !!data.launch.links.flickr_images && (
-        <div className={`${className}__image-list`}>
-          {data.launch.links.flickr_images.map((image, i) =>
-            image ? (
-              <img
-                src={image}
-                className={`${className}__image`}
-                key={image}
-                alt={`${data.launch?.mission_name} ${i}`}
-              />
-            ) : null,
-          )}
-        </div>
-      )}
+      <p className={`${className}__description`}>{details}</p>
+      <LaunchProfileGallery images={images} classname={className} />
     </div>
-  );
-};
+  )
+}
 
-export default LaunchProfile;
+export default LaunchProfile

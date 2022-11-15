@@ -34,4 +34,6 @@
 
 .LaunchProfile__image {
   width: 100%;
+  height: 550px;
+  object-fit: scale-down;
 }

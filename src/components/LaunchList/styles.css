@@ -1,4 +1,4 @@
-LaunchList {
+.LaunchList {
   height: 100vh;
   overflow: hidden auto;
   background-color: #ececec;
@@ -8,7 +8,6 @@ LaunchList {
 }
 
 .LaunchList__list {
-  list-style: none;
   margin: 0;
   padding: 0;
 }
