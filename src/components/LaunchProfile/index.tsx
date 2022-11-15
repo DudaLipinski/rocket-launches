@@ -1,23 +1,33 @@
-import { useLaunchProfileQuery } from "../../generated/graphql";
-import LaunchProfile from "./LaunchProfile";
+import { useEffect } from 'react'
+import { useLaunchProfileQuery } from '../../generated/graphql'
+import LaunchProfile from './LaunchProfile'
 
-const LaunchProfileContainer = () => {
-  const { data, error, loading } = useLaunchProfileQuery({ variables: { id: '42' } });
+interface OwnProps {
+  id: number
+}
 
-  if(loading) {
-    return <div>Loading</div>;
+const LaunchProfileContainer = ({ id }: OwnProps) => {
+  const { data, error, loading, refetch } = useLaunchProfileQuery({
+    variables: { id: String(id) },
+  })
+
+  useEffect(() => {
+    refetch({ id: String(id) })
+  }, [refetch, id])
+
+  if (loading) {
+    return <div>Loading</div>
   }
 
   if (error) {
-    return <div>ERROR</div>;
+    return <div>ERROR</div>
   }
 
   if (!data) {
-    return <div>Select a flight from the panel</div>;
+    return <div>Select a flight from the panel</div>
   }
 
-  return <LaunchProfile data={data} />;
+  return <LaunchProfile data={data} />
+}
 
-};
-
-export default LaunchProfileContainer;
+export default LaunchProfileContainer

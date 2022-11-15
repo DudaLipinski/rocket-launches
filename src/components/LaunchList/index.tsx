@@ -1,18 +1,19 @@
-import { useLaunchListQuery } from '../../generated/graphql';
-import LaunchList from './LaunchList'
+import { useLaunchListQuery } from '../../generated/graphql'
+import LaunchList, { OwnProps } from './LaunchList'
 
-const LaunchListContainer = () => {
-  const {data, error, loading} = useLaunchListQuery()
+// handleIdChange === { handleIdChange }
+const LaunchListContainer = ({ handleIdChange }: OwnProps) => {
+  const { data, error, loading } = useLaunchListQuery()
 
-  if(loading) {
+  if (loading) {
     return <div>Loading...</div>
   }
 
-  if(error || !data) {
+  if (error || !data) {
     return <div>Error</div>
   }
 
-  return <LaunchList data={data}/>
+  return <LaunchList data={data} handleIdChange={handleIdChange} />
 }
 
-export default LaunchListContainer;
+export default LaunchListContainer
