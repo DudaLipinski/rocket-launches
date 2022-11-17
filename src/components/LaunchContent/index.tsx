@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useLaunchProfileQuery } from '../../generated/graphql'
-import LaunchProfile from './LaunchProfile'
+import LaunchProfile from './LaunchContent'
 
 interface OwnProps {
   id: number
