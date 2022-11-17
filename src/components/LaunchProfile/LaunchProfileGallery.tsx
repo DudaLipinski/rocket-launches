@@ -1,26 +1,29 @@
-import React from 'react'
+import { Image } from 'antd'
+import styled from 'styled-components'
+
+const LaunchesImages = styled(Image)`
+  width: 400px;
+  height: 400px;
+  margin: 5px;
+  object-fit: cover;
+  object-position: top;
+`
 
 interface Props {
   images: (string | null)[] | null | undefined
-  classname: string
 }
 
-const LaunchProfileGallery = ({ images, classname }: Props) => {
+const LaunchProfileGallery = ({ images }: Props) => {
   if (images?.length) {
     return (
-      <div className={`${classname}__image-list`}>
+      <Image.PreviewGroup>
         {images.map((image, i) => (
-          <img
-            className={`${classname}__image`}
-            key={image}
-            alt={`${i}`}
-            src={`${image}`}
-          />
+          <LaunchesImages key={image} alt={`${i}`} src={`${image}`} />
         ))}
-      </div>
+      </Image.PreviewGroup>
     )
   } else {
-    return <p>No images</p>
+    return <p>No images :(</p>
   }
 }
 

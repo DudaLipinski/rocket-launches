@@ -1,12 +1,13 @@
+import './styles.css'
+
+import { Breadcrumb, Layout } from 'antd'
 import { LaunchProfileQuery } from '../../generated/graphql'
 import LaunchProfileGallery from './LaunchProfileGallery'
-import './styles.css'
+const { Content } = Layout
 
 interface Props {
   data: LaunchProfileQuery
 }
-
-const className = 'LaunchProfile'
 
 const LaunchProfile = ({ data }: Props) => {
   if (!data.launch) {
@@ -18,22 +19,27 @@ const LaunchProfile = ({ data }: Props) => {
   const images = data?.launch?.links?.flickr_images
 
   return (
-    <div className={className}>
-      <div className={`${className}__status`}>
-        <span>Flight {flight_number}: </span>
-        {launch_success ? (
-          <span className={`${className}__success`}>Success</span>
-        ) : (
-          <span className={`${className}__failed`}>Failed</span>
-        )}
-      </div>
-      <h1 className={`${className}__title`}>
-        {mission_name}
-        {rocket && ` (${rocket.rocket_name} | ${rocket.rocket_type})`}
-      </h1>
-      <p className={`${className}__description`}>{details}</p>
-      <LaunchProfileGallery images={images} classname={className} />
-    </div>
+    <Layout className="site-layout">
+      <Content style={{ margin: '0 16px' }}>
+        <Breadcrumb style={{ margin: '16px 0' }}>
+          <Breadcrumb.Item>Launches</Breadcrumb.Item>
+          <Breadcrumb.Item>{mission_name}</Breadcrumb.Item>
+        </Breadcrumb>
+        <div
+          className="site-layout-background"
+          style={{ padding: 24, minHeight: 360 }}
+        >
+          <span>Flight {flight_number}: </span>
+          {launch_success ? <span>Success</span> : <span>Failed</span>}
+          <h1>
+            {mission_name}
+            {rocket && ` (${rocket.rocket_name} | ${rocket.rocket_type})`}
+          </h1>
+          <p>{details}</p>
+          <LaunchProfileGallery images={images} />
+        </div>
+      </Content>
+    </Layout>
   )
 }
 

@@ -4,7 +4,6 @@ import { LaunchListQuery } from '../../generated/graphql'
 
 import { RocketOutlined } from '@ant-design/icons'
 import { Layout, Menu, MenuProps } from 'antd'
-import './styles.css'
 const { Sider } = Layout
 
 function getItem(
