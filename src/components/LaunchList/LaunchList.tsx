@@ -1,6 +1,27 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+import { useState } from 'react'
 import { LaunchListQuery } from '../../generated/graphql'
-import './styles.css'
 
+import { RocketOutlined } from '@ant-design/icons'
+import { Layout, Menu, MenuProps } from 'antd'
+import './styles.css'
+const { Sider } = Layout
+
+function getItem(
+  label: React.ReactNode,
+  key: React.Key,
+  icon?: React.ReactNode,
+  children?: MenuItem[]
+): MenuItem {
+  return {
+    key,
+    icon,
+    children,
+    label,
+  } as MenuItem
+}
+
+type MenuItem = Required<MenuProps>['items'][number]
 export interface OwnProps {
   handleIdChange: (newId: number) => void
 }
@@ -8,28 +29,40 @@ interface Props extends OwnProps {
   data: LaunchListQuery
 }
 
-const className = 'LaunchList'
-
 const LaunchList = ({ data, handleIdChange }: Props) => {
+  const [collapsed, setCollapsed] = useState(true)
+
+  const subItems = data.launches?.map((launch, i) =>
+    getItem(
+      `${launch?.mission_name} ${launch?.launch_year}`,
+      `${i}-${launch?.flight_number}`
+    )
+  )
+
+  const items: MenuItem[] = [
+    getItem('Launches', 'sub1', <RocketOutlined />, subItems),
+  ]
+
+  const onClick = (e: any) => {
+    const flightNumber = e.key.split('-')
+    handleIdChange(flightNumber[1])
+  }
+
   return (
-    <div className={className}>
-      <h3>Launches</h3>
-      <div className={`${className}__list`}>
-        {!!data.launches &&
-          data.launches.map(
-            (launch, i) =>
-              !!launch && (
-                <p
-                  key={i}
-                  className={`${className}__item`}
-                  onClick={() => handleIdChange(launch.flight_number!)}
-                >
-                  {launch.mission_name} {launch.launch_year}
-                </p>
-              )
-          )}
-      </div>
-    </div>
+    <Sider
+      collapsible
+      collapsed={collapsed}
+      onCollapse={(value) => setCollapsed(value)}
+    >
+      <div className="logo" />
+      <Menu
+        theme="dark"
+        defaultSelectedKeys={['1']}
+        mode="inline"
+        items={items}
+        onClick={onClick}
+      />
+    </Sider>
   )
 }
 
