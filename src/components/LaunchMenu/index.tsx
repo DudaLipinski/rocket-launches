@@ -1,5 +1,5 @@
 import { useLaunchListQuery } from '../../generated/graphql'
-import LaunchList, { OwnProps } from './LaunchList'
+import LaunchList, { OwnProps } from './LaunchMenu'
 
 const LaunchListContainer = ({ handleIdChange }: OwnProps) => {
   const { data, error, loading } = useLaunchListQuery()

@@ -1,5 +1,7 @@
-import LaunchList from './components/LaunchList'
-import LaunchProfile from './components/LaunchProfile'
+import LaunchList from './components/LaunchMenu'
+import LaunchProfile from './components/LaunchContent'
+import LaunchHeader from './components/LaunchHeader/LaunchHeader'
+import { Layout } from 'antd'
 
 import './App.css'
 import { useCallback, useState } from 'react'
@@ -13,7 +15,10 @@ function App() {
   return (
     <div className="App">
       <LaunchList handleIdChange={handleIdChange} />
-      <LaunchProfile id={id} />
+      <Layout className="site-layout">
+        <LaunchHeader />
+        <LaunchProfile id={id} />
+      </Layout>
     </div>
   )
 }
