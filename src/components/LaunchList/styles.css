@@ -17,4 +17,5 @@
   padding-bottom: 20px;
   border-top: 1px solid #919191;
   cursor: pointer;
+  list-style-type: none;
 }
