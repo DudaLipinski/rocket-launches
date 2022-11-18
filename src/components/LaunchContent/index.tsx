@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useLaunchProfileQuery } from '../../generated/graphql'
-import LaunchProfile from './LaunchContent'
+import LaunchContent from './LaunchContent'
 
 interface OwnProps {
   id: number
@@ -27,7 +27,7 @@ const LaunchProfileContainer = ({ id }: OwnProps) => {
     return <div>Select a flight from the panel</div>
   }
 
-  return <LaunchProfile data={data} />
+  return <LaunchContent data={data} />
 }
 
 export default LaunchProfileContainer

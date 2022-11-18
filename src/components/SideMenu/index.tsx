@@ -1,5 +1,5 @@
 import { useLaunchListQuery } from '../../generated/graphql'
-import LaunchList, { OwnProps } from './LaunchMenu'
+import SideMenu, { OwnProps } from './SideMenu'
 
 const LaunchListContainer = ({ handleIdChange }: OwnProps) => {
   const { data, error, loading } = useLaunchListQuery()
@@ -12,7 +12,7 @@ const LaunchListContainer = ({ handleIdChange }: OwnProps) => {
     return <div>Error</div>
   }
 
-  return <LaunchList data={data} handleIdChange={handleIdChange} />
+  return <SideMenu data={data} handleIdChange={handleIdChange} />
 }
 
 export default LaunchListContainer

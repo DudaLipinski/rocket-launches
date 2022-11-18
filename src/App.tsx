@@ -1,7 +1,9 @@
-import LaunchList from './components/LaunchMenu'
-import LaunchProfile from './components/LaunchContent'
-import LaunchHeader from './components/LaunchHeader/LaunchHeader'
+import LaunchList from './components/SideMenu'
+import LaunchHeader from './components/Header/LaunchHeader'
 import { Layout } from 'antd'
+import { BrowserRouter as Router } from 'react-router-dom'
+
+import AppRoutes from './AppRoutes'
 
 import './App.css'
 import { useCallback, useState } from 'react'
@@ -13,13 +15,15 @@ function App() {
   }, [])
 
   return (
-    <div className="App">
-      <LaunchList handleIdChange={handleIdChange} />
-      <Layout className="site-layout">
-        <LaunchHeader />
-        <LaunchProfile id={id} />
-      </Layout>
-    </div>
+    <Router>
+      <div className="App">
+        <LaunchList handleIdChange={handleIdChange} />
+        <Layout className="site-layout">
+          <LaunchHeader />
+          <AppRoutes id={id} />
+        </Layout>
+      </div>
+    </Router>
   )
 }
 
