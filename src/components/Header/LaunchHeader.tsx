@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   height: inherit;
 `
 
-function LaunchHeader() {
+function HeaderTop() {
   const onSearch = (value: string) => console.log(value)
 
   return (
@@ -32,4 +32,4 @@ function LaunchHeader() {
   )
 }
 
-export default LaunchHeader
+export default HeaderTop

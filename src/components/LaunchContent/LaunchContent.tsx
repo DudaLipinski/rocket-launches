@@ -1,13 +1,14 @@
 import { Breadcrumb, Layout } from 'antd'
 import { LaunchProfileQuery } from '../../generated/graphql'
 import LaunchProfileGallery from './LaunchGallery'
+import { Link } from 'react-router-dom'
 const { Content } = Layout
 
 interface Props {
   data: LaunchProfileQuery
 }
 
-const LaunchProfile = ({ data }: Props) => {
+const LaunchContent = ({ data }: Props) => {
   if (!data.launch) {
     return <div>No launch available</div>
   }
@@ -19,7 +20,9 @@ const LaunchProfile = ({ data }: Props) => {
   return (
     <Content style={{ margin: '0 16px' }}>
       <Breadcrumb style={{ margin: '16px 0' }}>
-        <Breadcrumb.Item>Launches</Breadcrumb.Item>
+        <Breadcrumb.Item>
+          <Link to="/">Home</Link>
+        </Breadcrumb.Item>
         <Breadcrumb.Item>{mission_name}</Breadcrumb.Item>
       </Breadcrumb>
       <div
@@ -39,4 +42,4 @@ const LaunchProfile = ({ data }: Props) => {
   )
 }
 
-export default LaunchProfile
+export default LaunchContent
