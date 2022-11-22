@@ -3,7 +3,7 @@ import { Content } from 'antd/lib/layout/layout'
 
 function Home() {
   return (
-    <Content style={{ margin: '0 16px' }}>
+    <Content style={{ margin: '0 16px', minHeight: '90vh' }}>
       <Breadcrumb style={{ margin: '16px 0' }}>
         <Breadcrumb.Item>Home</Breadcrumb.Item>
       </Breadcrumb>

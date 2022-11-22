@@ -1,19 +1,38 @@
-import { Route, Routes } from 'react-router-dom'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Route, Routes, useLocation } from 'react-router-dom'
 import Home from './components/Home/Home'
 import LaunchProfileContainer from './components/LaunchContent'
 
 interface Props {
-  id: number
+  id: number | undefined
+  handleIdChange: (newId: number) => void
 }
 
-function AppRoutes({ id }: Props) {
+function AppRoutes({ id, handleIdChange }: Props) {
+  const location = useLocation()
+
+  const { pathname } = location
+
+  const urlLauncheshWord = pathname.split('/')[1]
+  const urlIdLaunch = pathname.split('/')[2]
+
+  if (urlLauncheshWord === 'launches') {
+    handleIdChange(Number(urlIdLaunch))
+  }
+
   return (
     <Routes>
-      <Route
-        path="/launches/:id"
-        element={<LaunchProfileContainer id={id} />}
-      />
-      <Route path="/" element={<Home />} />
+      {id ? (
+        <>
+          <Route
+            path="/launches/:id"
+            element={<LaunchProfileContainer id={id} />}
+          />
+          <Route path="/" element={<Home />} />
+        </>
+      ) : (
+        <Route path="/" element={<Home />} />
+      )}
     </Routes>
   )
 }
