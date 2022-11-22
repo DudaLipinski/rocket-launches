@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useLaunchProfileQuery } from '../../generated/graphql'
 import LaunchContent from './LaunchContent'
+import { Spin } from 'antd'
 
 interface OwnProps {
   id: number
@@ -16,7 +17,7 @@ const LaunchProfileContainer = ({ id }: OwnProps) => {
   }, [refetch, id])
 
   if (loading) {
-    return <div>Loading</div>
+    return <Spin />
   }
 
   if (error) {

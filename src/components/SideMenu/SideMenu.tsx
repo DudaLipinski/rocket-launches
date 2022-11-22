@@ -31,7 +31,7 @@ interface Props extends OwnProps {
 }
 
 const SideMenu = ({ data, handleIdChange }: Props) => {
-  const [collapsed, setCollapsed] = useState(true)
+  const [collapsed, setCollapsed] = useState(false)
   const navigate = useNavigate()
 
   const subItems = data.launches?.map((launch, i) =>

@@ -2,8 +2,8 @@ import { Image } from 'antd'
 import styled from 'styled-components'
 
 const LaunchesImages = styled(Image)`
-  width: 400px;
-  height: 400px;
+  width: 300px;
+  height: 300px;
   margin: 5px;
   object-fit: cover;
   object-position: top;

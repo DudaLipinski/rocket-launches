@@ -1,5 +1,5 @@
 import LaunchList from './components/SideMenu'
-import LaunchHeader from './components/Header/LaunchHeader'
+import Header from './components/Header/Header'
 import { Layout } from 'antd'
 import { BrowserRouter as Router } from 'react-router-dom'
 
@@ -9,7 +9,7 @@ import './App.css'
 import { useCallback, useState } from 'react'
 
 function App() {
-  const [id, setId] = useState(42)
+  const [id, setId] = useState<number | undefined>()
   const handleIdChange = useCallback((newId: number) => {
     setId(newId)
   }, [])
@@ -19,8 +19,8 @@ function App() {
       <div className="App">
         <LaunchList handleIdChange={handleIdChange} />
         <Layout className="site-layout">
-          <LaunchHeader />
-          <AppRoutes id={id} />
+          <Header handleIdChange={handleIdChange} />
+          <AppRoutes id={id} handleIdChange={handleIdChange} />
         </Layout>
       </div>
     </Router>

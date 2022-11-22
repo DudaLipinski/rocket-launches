@@ -18,7 +18,7 @@ const LaunchContent = ({ data }: Props) => {
   const images = data?.launch?.links?.flickr_images
 
   return (
-    <Content style={{ margin: '0 16px' }}>
+    <Content style={{ margin: '0 16px', minHeight: '90vh' }}>
       <Breadcrumb style={{ margin: '16px 0' }}>
         <Breadcrumb.Item>
           <Link to="/">Home</Link>

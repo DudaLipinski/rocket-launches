@@ -1,11 +1,12 @@
 import { useLaunchListQuery } from '../../generated/graphql'
 import SideMenu, { OwnProps } from './SideMenu'
+import { Spin } from 'antd'
 
 const LaunchListContainer = ({ handleIdChange }: OwnProps) => {
   const { data, error, loading } = useLaunchListQuery()
 
   if (loading) {
-    return <div>Loading...</div>
+    return <Spin />
   }
 
   if (error || !data) {
