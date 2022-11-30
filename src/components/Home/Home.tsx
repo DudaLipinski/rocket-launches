@@ -11,7 +11,7 @@ function Home() {
         className="site-layout-background"
         style={{ padding: 24, minHeight: 360 }}
       >
-        <h1>Select a launch in the left side</h1>
+        <h1>Launchly</h1>
       </div>
     </Content>
   )
