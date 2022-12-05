@@ -1,11 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { useState } from 'react'
 import { LaunchListQuery } from '../../generated/graphql'
-
-import { RocketOutlined, HomeOutlined } from '@ant-design/icons'
+import {
+  RocketOutlined,
+  HomeOutlined,
+  CalendarOutlined,
+} from '@ant-design/icons'
 import { Layout, Menu, MenuProps } from 'antd'
 import { useNavigate } from 'react-router-dom'
 const { Sider } = Layout
+
+type MenuItem = Required<MenuProps>['items'][number]
 
 function getItem(
   label: React.ReactNode,
@@ -21,7 +25,6 @@ function getItem(
   } as MenuItem
 }
 
-type MenuItem = Required<MenuProps>['items'][number]
 export interface OwnProps {
   handleIdChange: (newId: number) => void
 }
@@ -30,41 +33,68 @@ interface Props extends OwnProps {
   data: LaunchListQuery
 }
 
-const SideMenu = ({ data, handleIdChange }: Props) => {
-  const [collapsed, setCollapsed] = useState(false)
+interface LaunchesGroupedByYear {
+  [launchYear: number]: LaunchListQuery['launches']
+}
+
+const SideMenu = ({ data }: Props) => {
+  const [collapsed, setCollapsed] = useState(true)
   const navigate = useNavigate()
 
-  const subItems = data.launches?.map((launch, i) =>
-    getItem(
-      `${launch?.mission_name} ${launch?.launch_year}`,
-      `${i}-${launch?.flight_number}`
-    )
+  const launchesGroupedByYear = data.launches?.reduce<LaunchesGroupedByYear>(
+    function (acc, currentLaunch) {
+      if (!currentLaunch || !currentLaunch.launch_year) {
+        return acc
+      }
+
+      const { launch_year } = currentLaunch
+
+      if (!acc[launch_year]) {
+        acc[launch_year] = []
+      }
+
+      acc[launch_year]?.push(currentLaunch)
+
+      return acc
+    },
+    {}
   )
+
+  const arrLaunchesGroupedByYear = Object.entries(
+    launchesGroupedByYear ? launchesGroupedByYear : 0
+  )
+
+  const subItemsByYear = arrLaunchesGroupedByYear.map((launchesByYear) => {
+    const arrLaunches: LaunchListQuery['launches'] = Object.values(
+      launchesByYear[1]
+    )
+
+    const launchItem = arrLaunches.map((launch) => {
+      return getItem(
+        launch?.mission_name,
+        `launches/${launch?.flight_number}/${launch?.mission_name}`
+      )
+    })
+
+    return getItem(
+      launchesByYear[0],
+      launchesByYear[0],
+      <CalendarOutlined />,
+      launchItem
+    )
+  })
 
   const items: MenuItem[] = [
     getItem('Home', 'home', <HomeOutlined />),
-    getItem('Launches', 'launches', <RocketOutlined />, subItems),
+    getItem('Launches', 'launches', <RocketOutlined />, subItemsByYear),
   ]
 
   const onClick: MenuProps['onClick'] = (e) => {
-    if (e.key === 'home') {
-      navigate('/')
-      return
-    }
-
-    const flightNumber = e.key.split('-')
-    const id = Number(flightNumber[1])
-    handleIdChange(id)
-    navigate(`launches/${id}`)
+    navigate(e.key)
   }
 
   return (
-    <Sider
-      collapsible
-      collapsed={collapsed}
-      onCollapse={(value) => setCollapsed(value)}
-    >
-      <div className="logo" />
+    <Sider>
       <Menu
         theme="dark"
         defaultSelectedKeys={['1']}

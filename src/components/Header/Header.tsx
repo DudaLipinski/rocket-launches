@@ -16,7 +16,6 @@ const Wrapper = styled.div`
   width: inherit;
   height: inherit;
 `
-
 export interface Props {
   handleIdChange: (newId: number) => void
 }
@@ -38,7 +37,7 @@ function HeaderTop({ handleIdChange }: Props) {
 
       if (id) {
         handleIdChange(id)
-        navigate(`launches/${id}`)
+        navigate(`launches/${id}/${launchFound.mission_name}`)
       } else {
         alert('Mission not found')
       }

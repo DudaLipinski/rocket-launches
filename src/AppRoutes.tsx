@@ -13,10 +13,10 @@ function AppRoutes({ id, handleIdChange }: Props) {
 
   const { pathname } = location
 
-  const urlLauncheshWord = pathname.split('/')[1]
+  const urlLaunchesWord = pathname.split('/')[1]
   const urlIdLaunch = pathname.split('/')[2]
 
-  if (urlLauncheshWord === 'launches') {
+  if (urlLaunchesWord === 'launches') {
     handleIdChange(Number(urlIdLaunch))
   }
 
@@ -25,13 +25,18 @@ function AppRoutes({ id, handleIdChange }: Props) {
       {id ? (
         <>
           <Route
-            path="/launches/:id"
+            path="/launches/:id/:mission_name"
             element={<LaunchProfileContainer id={id} />}
           />
+
           <Route path="/" element={<Home />} />
+          <Route path="*" element={<Home />} />
         </>
       ) : (
-        <Route path="/" element={<Home />} />
+        <>
+          <Route path="/" element={<Home />} />
+          <Route path="*" element={<Home />} />
+        </>
       )}
     </Routes>
   )
